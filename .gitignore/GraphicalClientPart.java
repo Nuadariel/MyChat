@@ -35,8 +35,8 @@ public class GraphicalClientPart extends JFrame implements ActionListener {
         Online.setEnabled(false);
     }
 
-    public void Print(String massage) {
-        msgarea.append(massage+"");
+    public void Print(String message) {
+        msgarea.append(message+"");
         msgarea.setCaretPosition(msgarea.getText().length() - 1);
     }
     public void ConnectionProblem(){
@@ -48,11 +48,11 @@ public class GraphicalClientPart extends JFrame implements ActionListener {
         work=false;
     }
 public static void main(String[] args){
-    new GraphicalClientPart("192.168.0.1",11155);
+    new GraphicalClientPart("127.0.0.1",11155);
 }
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Login")){
-            System.out.println(134);
+
             String tn = msgandnickField.getText().trim();
             String ti = ipField.getText().trim();
             String tp = portField.getText().trim();
@@ -64,7 +64,7 @@ public static void main(String[] args){
                 return;
             }
             msgandnickField.setText("");
-            nickandmsgLabel.setText("Enter your username below:");
+            nickandmsgLabel.setText("Enter your message below:");
             work=true;
             Logout.setEnabled(true);
             Online.setEnabled(true);
@@ -72,8 +72,9 @@ public static void main(String[] args){
             ipField.setEditable(false);
             portField.setEditable(false);
             msgandnickField.addActionListener(this);
+            return;
         }
-        if (e.getActionCommand().equals("Online")){
+        if (e.getActionCommand().equals("Online List")){
             myclient.sendSmth(new ObjectToSend("","online"));
             return;
         }

@@ -26,10 +26,10 @@ public class Client {
         try {
             mysocket = new Socket(ip, port);
         } catch (Exception ex) {
-            gui.Print(String.valueOf(ex));
+            gui.Print("Such a server does not exist!\n");
             return false;
         }
-        gui.Print("You've has been successfully connected to: " + ip);
+        gui.Print("You've has been successfully connected to: " + ip+"\n");
         try {
             sender = new ObjectOutputStream(mysocket.getOutputStream());
             reciever = new ObjectInputStream(mysocket.getInputStream());
@@ -38,6 +38,7 @@ public class Client {
             return false;
         }
         Thread th = new Thread(new ClientThread());
+        th.start();
         try{
             sender.writeObject(nickname);
         } catch (IOException ex) {
@@ -78,8 +79,9 @@ public class Client {
                 try {
                     gui.Print(String.valueOf(reciever.readObject()));
                 } catch (IOException ex) {
-                    gui.Print("You've been disconnected from Server");
+                    gui.Print("You've been disconnected from Server\n");
                     gui.ConnectionProblem();
+                    break;
                 } catch (ClassNotFoundException ex) {
                 }
             }
